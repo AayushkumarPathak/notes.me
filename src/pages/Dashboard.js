@@ -8,6 +8,8 @@ import { useState } from "react";
 function Dashboard() {
   const [showAddNote, setShowAddNote] = useState(false);
   return (
+    <>
+    
     <section className="flex flex-row h-screen">
       <div className="">
         <Sidebar setShowAddNote={setShowAddNote} />
@@ -16,6 +18,8 @@ function Dashboard() {
 
       <MainContent showAddNote={showAddNote} />
     </section>
+    
+    </>
   );
 }
 

@@ -3,21 +3,7 @@ import Left from '../components/Left'
 import Right from '../components/Right'
 function Login() {
   return (
-    <>
-    {/* <main>
-        <div className='h-scren p-0 m-0 w-screen'>
-            <div className='grid grid-cols-12'>
-                <div id='left' className='grid col-span-6 '>
-                    <Left/>
-                </div>
-                
-
-                <div id='right' className='grid col-span-6 '>
-                    <Right/>
-                </div>
-            </div>
-        </div>
-    </main> */}
+    <> 
     <main>
     <div className='h-screen p-0 m-0 w-screen'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12'>

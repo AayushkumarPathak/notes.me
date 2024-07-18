@@ -24,3 +24,24 @@ li{
 i{
     cursor: pointer;
 }
+/* custom-scrollbar.css */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 2px;
+    
+    overflow: auto;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

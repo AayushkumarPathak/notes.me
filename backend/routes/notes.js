@@ -20,7 +20,7 @@ router.post(
   fetchuser,
   [
     body("title", "Enter valid username").isLength({ min: 3 }),
-    body("description", "password at least 6 char").isLength({ min: 6 }),
+    body("description", "password at least 6 char").isLength({ min: 3 }),
   ],
   async (req, res) => {
     try {

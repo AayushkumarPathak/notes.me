@@ -2,47 +2,45 @@ import React from "react";
 import Form from "./Form";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Right_Signup() {
   const history = useNavigate();
-  const [userid, setUserid] = useState("");
-  const [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState({
+    userid: "",
+    password: "",
+    cpassword: "",
+  });
+  let navigate = useNavigate();
   const [alertShown, setAlertShown] = useState(false);
-
-  async function handleSubmit(e) {
+  const { userid, password } = credentials;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try{
-      await axios
-      .post("http://localhost:8000/signup",{
-        userid,
-        password,
-      })
-      .then((res)=>{
-        if(res.data === "exist"){
-          // history("/dashboard",{state:{id:userid}})
-          // alert("User already exist")
-          toast.error("User already exists.");
-        }
-        else if(res.data === "notexist"){
-          // alert("User registered successfully");
-          toast.success("User registered successfully!");
-          setAlertShown(true);
-          history("/",{state:{id:userid}});
-          
-        }
-      }).catch(e=>{
-        alert("wrong details");
-        console.log(e);
-      })
+    const response = await fetch("http://localhost:8000/api/auth/createUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userid, password }),
+    });
+    const json = await response.json();
+    console.log(json);
+    
+    if (json.success) {
+      localStorage.setItem("token", json.authToken);
+      toast.success("Signed up successfully");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else {
+      toast.error(json.error);
     }
-    catch(e){
-      console.log(e);
-    }
-  }
+  };
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <ToastContainer />
@@ -61,62 +59,76 @@ function Right_Signup() {
         </div>
         <div className="flex text-center flex-col">
           <div className="mt-5">
-          <div className="w-full h-full">
-      <form class="space-y-4 md:space-y-6" action="POST" noValidate>
-        <div>
-          <label
-            for="email"
-            class="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Enter your Username
-          </label>
-          <input
-          onChange={(e)=>{
-            setUserid(e.target.value)
-          }}
-            type="text"
-            name=""
-            id=""
-            
-            class="bg-gray-50 border border-gray-600 text-gray-600 rounded-lg  block w-full p-2.5"
-            placeholder="a-zA-Z0-9"
-            required=""
-          />
-        </div>
-        <div>
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-900  "
-          >
-            Password
-          </label>
-          <input
-            onChange={(e)=>{
-              setPassword(e.target.value);
-            }}
-            type="password"
-            name=""
-            id=""
-            placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 text-gray-600 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600   dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required=""
-          />
-        </div>
+            <div className="w-full h-full">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label
+                    htmlFor="userid"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Enter your Username
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="text"
+                    name="userid"
+                    id="userid"
+                    className="bg-gray-50 border border-gray-600 text-gray-600 rounded-lg  block w-full p-2.5"
+                    placeholder="a-zA-Z0-9"
+                    required
+                    minLength={3}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900  "
+                  >
+                    Password (min 6 char)
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-600 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600   dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="cpassword"
+                    className="block mb-2 text-sm font-medium text-gray-900  "
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="password"
+                    name="cpassword"
+                    id="cpassword"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-600 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600   dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                  />
+                </div>
 
-        <div className="w-full px-5">
-          <input
-            onClick={handleSubmit}
-            type="submit"
-            placeholder="Register"
-            class="w-full border cursor-pointer border-gray-500 px-6 text-gray-900 bg-green-300 hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  py-2.5 text-center   dark:focus:ring-primary-800"
-          />
-            
-          
-          <a href="/" className="ml-4 text-orange-400 font-semibold">Login?</a>
-        </div>
-      </form>
-    </div>
-            
+                <div className="w-full px-5">
+                  <button
+                    type="submit"
+                    className="w-full border cursor-pointer border-gray-500 px-6 text-gray-900 bg-green-300 hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  py-2.5 text-center   dark:focus:ring-primary-800"
+                  >
+                    Signup
+                  </button>
+
+                  <a href="/" className="ml-4 text-orange-400 font-semibold">
+                    Login?
+                  </a>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

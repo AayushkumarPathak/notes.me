@@ -15,15 +15,16 @@ router.post(
     body("password", "password at least 6 char").isLength({ min: 6 }),
   ],
   async (req, res) => {
+    let success = false;
     //validation
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success,errors: errors.array() });
     }
     try {
       let user = await User.findOne({ userid: req.body.userid });
       if (user) {
-        return res.status(400).json({ error: "User already exists" });
+        return res.status(400).json({ success, error: "User already exists" });
       }
       const salt = await bcrypt.genSalt(10);
       const securePassword = await bcrypt.hash(req.body.password, salt);
@@ -38,8 +39,8 @@ router.post(
       };
 
       const authToken = jwt.sign(data, JWT_SECRET);
-
-      res.json({ authToken });
+      success = true;
+      res.json({success, authToken });
     } catch (error) {
       console.log(error.message);
     }
@@ -55,6 +56,7 @@ router.post(
   ],
 
   async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -71,17 +73,20 @@ router.post(
       }
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
+        success = false;
         return res
           .status(400)
-          .json({ error: "Please try to login with correct credentials" });
+          .json({success, error: "Please try to login with correct credentials" });
       }
       const data = {
         user: {
           id: user.id,
         },
       };
+
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json({ authToken });
+      success = true;
+      res.json({ success, authToken });
     } catch (error) {
       console.log(error.message);
     }

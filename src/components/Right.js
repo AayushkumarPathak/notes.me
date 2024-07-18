@@ -4,8 +4,11 @@ import Form from "./Form";
 function Right() {
   return (
     <div>
+      <div className="flex justify-center"><h1 className='text-4xl mt-1 text-gray-500'>Login Here!</h1></div>
       <div className=" h-screen flex justify-center items-center flex-col py-28">
+        
         <div className="flex justify-center items-center">
+          
           <svg
             className="h-16 w-16 "
             xmlns="http://www.w3.org/2000/svg"
@@ -18,21 +21,21 @@ function Right() {
           </h1>
         </div>
         <div className="flex text-center flex-col">
-          <button class="cursor-pointer flex bg-green-300  text-black px-2 py-1 border border-gray-500 shadow-md rounded-md mt-2">
+          {/* <button className="cursor-pointer flex bg-green-300  text-black px-2 py-1 border border-gray-500 shadow-md rounded-md mt-2">
             <span>
               <img
-                class="mt-1 mx-1"
+                className="mt-1 mx-1"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4="
                 alt="google"
               />
             </span>
             <a href="#">Login with Google</a>
-          </button>
-          <div className="flex flex-row">
+          </button> */}
+          {/* <div className="flex flex-row">
             <div className=" mt-5 ml-4 mr-2 border-t-2 border-black w-24"></div>
-            <span className="mt-2"> or </span>
+            <span className="mt-8"> or </span>
             <div className=" mt-5 mx-2 border-t-2 border-black w-28"></div>
-          </div>
+          </div> */}
 
           <div className="mt-5">
             <Form />
