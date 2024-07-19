@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://Aayush:Ranchilpu2022@cluster0.zgbk6yj.mongodb.net/notesme")
+require('dotenv').config();
+
+mongoose.connect(process.env.REACT_APP_MONGO_URL)
 .then(()=>{
-    console.log("Connected to Database");
+    console.log("MongoDB Connected");
 })
 .catch((e)=>{
-    console.log("Connection Failed");
+    console.log("Mongo Connection Failed");
 });
 
 const newSchema = new mongoose.Schema({

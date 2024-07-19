@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
-
-import { useLocation } from "react-router-dom";
+import React from "react";
 function Navbar() {
-  // const location = useLocation();
-  // const userName = location.state.userid;
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+  const uid = capitalizeFirstLetter(localStorage.getItem("userid"));
+  const finalUsername = uid ? uid :"GuestNew";
 
   return (
     <div>
@@ -21,7 +23,7 @@ function Navbar() {
         <div className="w-full flex justify-between md:w-auto md:ml-auto mt-2 md:mt-0 md:flex md:items-center">
           <div
             id="user"
-            className="flex items-center text-gray-700 bg-green-400 p-2 border rounded-md md:mr-2"
+            className="flex items-center text-gray-700 bg-green-400 p-2 border rounded-lg md:mr-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +35,7 @@ function Navbar() {
                 d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m0 7c2.67 0 8 1.33 8 4v3H4v-3c0-2.67 5.33-4 8-4m0 1.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1"
               />
             </svg>
-            <span className="ml-2">Guest</span>
+            <span className="ml-2">{finalUsername}</span>
           </div>
           <button
             onClick={() => console.log("dark mode")}

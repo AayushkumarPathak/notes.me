@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/img/Favicon.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate,Link } from "react-router-dom";
 import { useState } from "react";
 
 function Sidebar({ showAddNote, setShowAddNote }) {
@@ -12,10 +12,11 @@ function Sidebar({ showAddNote, setShowAddNote }) {
     setShowAddNote(true);
     navigate("/dashboard");
   };
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userid");
     history("/");
-  }
+  };
 
   return (
     <>
@@ -23,7 +24,6 @@ function Sidebar({ showAddNote, setShowAddNote }) {
         id="sidebar"
         className="w-16 md:w-24 h-full flex flex-col justify-between items-center p-2 md:p-4"
       >
-        {/* logo item */}
         <div className="flex flex-col items-center">
           <img src={logo} className="w-10 h-10 md:w-12 md:h-12" />
         </div>
@@ -31,7 +31,7 @@ function Sidebar({ showAddNote, setShowAddNote }) {
           <ul className="space-y-3 md:space-y-4">
             {/* home button */}
             <li>
-              <a href="/dashboard">
+              <Link to="/dashboard">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 md:h-8 md:w-8 text-white"
@@ -44,11 +44,11 @@ function Sidebar({ showAddNote, setShowAddNote }) {
                     clipRule="evenodd"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             {/* add note button */}
             <li>
-              {/* onClick={handleAddNoteClick} */}
+              
               <a className="cursor-pointer" onClick={handleAddNoteClick}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ function Sidebar({ showAddNote, setShowAddNote }) {
         <div className="flex flex-col items-center mb-2 md:mb-4">
           {/* handle logout */}
           <button onClick={handleLogout}>
-            <a href="">
+            <a >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 md:h-8 md:w-8 text-white"
@@ -79,6 +79,12 @@ function Sidebar({ showAddNote, setShowAddNote }) {
                 />
               </svg>
             </a>
+          </button>
+          <button  className="flex justify-center mt-8">
+          <Link to = "/aboutdev" className="cursor-pointer text-white ">
+            
+            About Dev
+          </Link>
           </button>
         </div>
       </div>

@@ -1,13 +1,17 @@
 import React from "react";
-import Form from "./Form";
+
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { PulseLoader } from "react-spinners";
 
+import { useAuth } from "../context/user/AuthContext";
 function Right_Signup() {
+  const PORT = process.env.REACT_APP_BACKEND_URL;
+  const { login } = useAuth();
   const history = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({
     userid: "",
     password: "",
@@ -18,7 +22,8 @@ function Right_Signup() {
   const { userid, password } = credentials;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/auth/createUser", {
+    setLoading(true);
+    const response = await fetch(`${PORT}/api/auth/createUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,10 +31,12 @@ function Right_Signup() {
       body: JSON.stringify({ userid, password }),
     });
     const json = await response.json();
-    console.log(json);
-    
+
     if (json.success) {
       localStorage.setItem("token", json.authToken);
+      // login({ id: userid }); // Set user data in context
+      login({ id: json.userid });
+      localStorage.setItem("userid", json.userid);
       toast.success("Signed up successfully");
       setTimeout(() => {
         navigate("/");
@@ -37,6 +44,7 @@ function Right_Signup() {
     } else {
       toast.error(json.error);
     }
+    setLoading(false);
   };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -117,15 +125,20 @@ function Right_Signup() {
 
                 <div className="w-full px-5">
                   <button
+                    disabled={loading}
                     type="submit"
-                    className="w-full border cursor-pointer border-gray-500 px-6 text-gray-900 bg-green-300 hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  py-2.5 text-center   dark:focus:ring-primary-800"
+                    className="w-full border cursor-pointer border-gray-500 px-6 text-gray-900 bg-green-300 hover:bg-green-400 font-medium rounded-lg text-sm  py-2.5 text-center"
                   >
-                    Signup
+                    {loading ? (
+                      <PulseLoader size={11} color={"black"} />
+                    ) : (
+                      "Signup"
+                    )}
                   </button>
 
-                  <a href="/" className="ml-4 text-orange-400 font-semibold">
+                  <Link to="/" className="ml-4 text-orange-400 font-semibold">
                     Login?
-                  </a>
+                  </Link>
                 </div>
               </form>
             </div>

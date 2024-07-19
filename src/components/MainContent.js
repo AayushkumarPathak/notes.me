@@ -6,12 +6,20 @@ import NoteIteam from "./NoteIteam";
 import AddNote from "./AddNote";
 import { set } from "mongoose";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/user/AuthContext";
 function MainContent({ showAddNote }) {
-  const name = "Aayush";
+  const {user} = useAuth();
   const context = useContext(NoteContext);
   const { notes, getNotes, editNote } = context;
   let navigate = useNavigate();
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+  
+  const userName = user ? capitalizeFirstLetter(user.id) : "Guest11";
+  const uid = capitalizeFirstLetter(localStorage.getItem("userid"));
+  const finalUsername = uid ? uid :"GuestNew";
 
   useEffect(() => {
     if(localStorage.getItem("token")){
@@ -128,7 +136,7 @@ function MainContent({ showAddNote }) {
           <div className="flex  justify-center">
             <h1>
               <span className="text-3xl font-normal">Hello, </span>
-              <span className="text-3xl">{name}</span>
+              <span className="text-3xl">{finalUsername}</span>
             </h1>
             <span className="text-3xl ml-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" viewBox="0 0 512 512">

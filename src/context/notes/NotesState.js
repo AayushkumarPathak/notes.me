@@ -3,7 +3,7 @@ import react, { useState } from "react";
 import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
-  const host = "http://localhost:8000";
+  const host = "https://noteme-backend-tv05.onrender.com";
   const initialNotes = [];
   const [notes, setNotes] = useState(initialNotes);
   //add a note
@@ -16,7 +16,7 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     setNotes(json);
   };
 
@@ -47,7 +47,7 @@ const NoteState = (props) => {
       },
     });
     const json = response.json();
-    console.log("deletenote method: ", json);
+    // console.log("deletenote method: ", json);
 
     // console.log("deleting the note with id: " + id);
     const newNotes = notes.filter((note) => {

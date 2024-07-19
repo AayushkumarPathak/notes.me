@@ -5,10 +5,10 @@ function AddNote() {
   const context = useContext(NoteContext);
   const { addNote } = context;
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
-
   const handleSubmit = (e) => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
+    
     setNote({ title: "", description: "", tag: "" });
   };
 
@@ -44,7 +44,7 @@ function AddNote() {
           >
             Description(min 3 char)
           </label>
-          
+
           <textarea
             onChange={onChange}
             id="description"
@@ -75,16 +75,16 @@ function AddNote() {
           />
         </div>
         {/* <div className="flex items-start justify-center -mb-4"> */}
-        
-          <button
-            onClick={handleSubmit}
-            type="submit"
-            disabled={note.title.length < 3 || note.description.length < 3}
-            className="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Submit
-          </button>
-        
+
+        <button
+          onClick={handleSubmit}
+          type="submit"
+          disabled={note.title.length < 3 || note.description.length < 3}
+          className="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        >
+          Save
+        </button>
+
         {/* </div> */}
       </form>
     </div>
