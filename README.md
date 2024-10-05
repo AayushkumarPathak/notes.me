@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-## You can view live webiste at, Live link : https://bit.ly/noteme-notes
+## You can view live webiste at, Live link : https://notemehere.netlify.app/
 Frontend deployed at Netlify.com and Backend is deployed at render.com
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
